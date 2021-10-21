@@ -1,0 +1,110 @@
+#
+#    Copyright 2021 A. Paul Millar
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+#  This file provides a description of the available functions using
+#  the Function Ontology (FnO).  For more details, see
+#  https://fno.io/
+
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix fno:  <https://w3id.org/function/ontology#> .
+@prefix fnml: <http://semweb.mmlab.be/ns/fnml#> .
+@prefix fnoi: <https://w3id.org/function/vocabulary/implementation#> .
+@prefix fnom: <https://w3id.org/function/vocabulary/mapping#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix ref:  <https://github.com/paulmillar/rml-extra-functions#> .
+
+#
+#  FUNCTIONS
+#
+
+ref:resolve a fno:Function ;
+    fno:name "resolve" ;
+    dcterms:description "Resolves a path relative to some URI." ;
+    fno:expects   ( ref:param_base_uri ref:param_path ) ;
+    fno:returns   ( ref:stringOut ) .
+
+ref:resolveDirectory a fno:Function ;
+    fno:name "resolveDirectory" ;
+    dcterms:description "Resolves a path relative to some directory URI." ;
+    fno:expects   ( ref:param_base_uri ref:param_path ) ;
+    fno:returns   ( ref:stringOut ) .
+
+ref:relativize a fno:Function ;
+    fno:name "relativize" ;
+    dcterms:description "Try to express a URI as a relative path from some other URI." ;
+    fno:expects   ( ref:param_base_uri ref:param_target_uri ) ;
+    fno:returns   ( ref:stringOut ) .
+
+#
+#  PARAMETERS
+#
+
+ref:param_base_uri a fno:Parameter ;
+    fno:name      "The base URI" ;
+    rdfs:label    "The base URI" ;
+    fno:predicate ref:p_string_base_uri ;
+    fno:type      xsd:string ;
+    fno:required  "true"^^xsd:boolean .
+
+ref:param_target_uri a fno:Parameter ;
+    fno:name      "The target URI" ;
+    rdfs:label    "The target URI" ;
+    fno:predicate ref:p_string_target_uri ;
+    fno:type      xsd:string ;
+    fno:required  "true"^^xsd:boolean .
+
+ref:param_path a fno:Parameter ;
+    fno:name      "Path to resolve" ;
+    rdfs:label    "Path to resolve" ;
+    fno:predicate ref:p_string_path ;
+    fno:type      xsd:string ;
+    fno:required  "true"^^xsd:boolean .
+
+ref:stringOut a fno:Output ;
+    fno:name      "output string" ;
+    rdfs:label    "output string" ;
+    fno:predicate ref:stringOutput ;
+    fno:type            xsd:string .
+
+#
+#  IMPLEMENTATIONS
+#
+
+ref:UriUtils a fnoi:javaClass ;
+    doap:download-page "./rml-extra-functions-1.0-SNAPSHOT.jar" ;
+    fnoi:class-name    "com.github.paulmillar.UriUtils" .
+
+#
+#  MAPPINGS
+#
+
+ref:resolveMapping a fnoi:Mapping ;
+    fno:function         ref:resolve ;
+    fno:implementation   ref:UriUtils ;
+    fno:methodMapping    [ a fnom:StringMethodMapping ;
+        fnom:method-name "resolve" ] .
+
+ref:resolveDirectoryMapping a fnoi:Mapping ;
+    fno:function         ref:resolveDirectory ;
+    fno:implementation   ref:UriUtils ;
+    fno:methodMapping    [ a fnom:StringMethodMapping ;
+        fnom:method-name "resolveDirectory" ] .
+
+ref:relativizeMapping a fnoi:Mapping ;
+    fno:function         ref:relativize ;
+    fno:implementation   ref:UriUtils ;
+    fno:methodMapping    [ a fnom:StringMethodMapping ;
+        fnom:method-name "relativize" ] .
