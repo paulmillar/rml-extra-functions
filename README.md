@@ -9,6 +9,13 @@ The primary use-case is to extend the abilities of
 [RMLMapper](https://github.com/RMLio/rmlmapper-java) to handle input
 data.
 
+## How to build
+
+The project uses [Apache Maven](https://maven.apache.org/) to manage
+the build process.  Once Maven is installed, building the package is
+relatively simple.  The command `mvn package` will create a jar file
+in the `target/` directory.
+
 ## How to use
 
 Here is a typical invocation of RMLMapper for a mapping that uses
@@ -22,16 +29,29 @@ In this command, the `-f` argument (`functions.ttl`) is the path to
 the FnO description of the REF functions.  This file may be found in
 this repository under the path `src/main/resources/functions.ttl`.
 
+The file `functions.ttl` assumes that the jar file is located in the
+current working directory when running the RMLMapper command.
+
 The `-m` argument (`mapping.ttl`) is the path to the RML mapping
 description.  This should make use of the REF functions as described
 in the [RMLMapping
 documentation](https://github.com/RMLio/rmlmapper-java#including-functions).
 
+The function definitions use a prefix of
+`https://github.com/paulmillar/rml-extra-functions#`; for example, the
+function `resolveDirectory` has the ID
+`https://github.com/paulmillar/rml-extra-functions#resolveDirectory`.
+
+
 ## Examples
 
 Here are some examples to illustrate how the REF functions may be used
-within an RML mapping.  The prefix `ref` is defined near the top of
-the file as:
+within an RML mapping.
+
+In these examples, the prefix `ref` is used as the prefix for
+`https://github.com/paulmillar/rml-extra-functions#`.
+
+Such prefixes are typically defined near the top of the file:
 
 ```turtle
 @prefix ref:  <https://github.com/paulmillar/rml-extra-functions#> .
