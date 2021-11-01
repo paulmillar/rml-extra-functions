@@ -48,6 +48,19 @@ ref:relativize a fno:Function ;
     fno:expects   ( ref:param_base_uri ref:param_target_uri ) ;
     fno:returns   ( ref:stringOut ) .
 
+ref:emptyToNull a fno:Function;
+    fno:name "emptyToNull";
+    dcterms:description "Convert empty strings to null values.";
+    fno:expects   ( ref:param_in_str );
+    fno:returns   ( ref:stringOut ).
+
+ref:blankToNull a fno:Function;
+    fno:name "blankToNull";
+    dcterms:description "Convert blank strings to null values.";
+    fno:expects   ( ref:param_in_str );
+    fno:returns   ( ref:stringOut ).
+
+
 #
 #  PARAMETERS
 #
@@ -73,6 +86,17 @@ ref:param_path a fno:Parameter ;
     fno:type      xsd:string ;
     fno:required  "true"^^xsd:boolean .
 
+ref:param_in_str a fno:Parameter;
+    fno:name      "The string to normalise";
+    rdfs:label    "The string to normalise";
+    fno:predicate ref:p_string_in;
+    fno:type      xsd:string;
+    fno:required  "true"^^xsd:boolean .
+
+#
+#  OUTPUTS
+#
+
 ref:stringOut a fno:Output ;
     fno:name      "output string" ;
     rdfs:label    "output string" ;
@@ -86,6 +110,10 @@ ref:stringOut a fno:Output ;
 ref:UriUtils a fnoi:javaClass ;
     doap:download-page "./rml-extra-functions-1.0-SNAPSHOT.jar" ;
     fnoi:class-name    "com.github.paulmillar.UriUtils" .
+
+ref:StringUtils a fnoi:javaClass ;
+    doap:download-page "./rml-extra-functions-1.0-SNAPSHOT.jar" ;
+    fnoi:class-name    "com.github.paulmillar.StringUtils" .
 
 #
 #  MAPPINGS
@@ -108,3 +136,15 @@ ref:relativizeMapping a fnoi:Mapping ;
     fno:implementation   ref:UriUtils ;
     fno:methodMapping    [ a fnom:StringMethodMapping ;
         fnom:method-name "relativize" ] .
+
+ref:emptyToNullMapping a fnoi:Mapping;
+    fno:function         ref:emptyToNull;
+    fno:implementation   ref:StringUtils;
+    fno:methodMapping    [ a fnom:StringMethodMapping;
+        fnom:method-name "emptyToNull" ].
+
+ref:blankToNullMapping a fnoi:Mapping;
+    fno:function         ref:blankToNull;
+    fno:implementation   ref:StringUtils;
+    fno:methodMapping    [ a fnom:StringMethodMapping;
+        fnom:method-name "blankToNull" ] .
