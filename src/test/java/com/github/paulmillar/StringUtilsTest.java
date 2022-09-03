@@ -82,4 +82,33 @@ public class StringUtilsTest {
         assertThat(result, is(equalTo("hello, world")));
     }
 
+    // TESTS FOR trim
+
+    @Test
+    public void shouldReturnValueForNoLeadingOrTrailingWhiteSpaceInputToTrim() {
+        String result = StringUtils.trim("hello, world");
+
+        assertThat(result, is(equalTo("hello, world")));
+    }
+
+    @Test
+    public void shouldReturnTrimmedValueForLeadingWhiteSpaceInputToTrim() {
+        String result = StringUtils.trim(" hello, world");
+
+        assertThat(result, is(equalTo("hello, world")));
+    }
+
+    @Test
+    public void shouldReturnTrimmedValueForTrailingWhiteSpaceInputToTrim() {
+        String result = StringUtils.trim("hello, world ");
+
+        assertThat(result, is(equalTo("hello, world")));
+    }
+
+    @Test
+    public void shouldReturnTrimmedValueForLeadingAndTrailingWhiteSpaceInputToTrim() {
+        String result = StringUtils.trim(" hello, world ");
+
+        assertThat(result, is(equalTo("hello, world")));
+    }
 }

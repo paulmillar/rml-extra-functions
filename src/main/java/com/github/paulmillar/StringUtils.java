@@ -44,4 +44,15 @@ public class StringUtils {
         }
         return in;
     }
+
+    /**
+     * Convert a string by removing any white space at the beginning or end.  If the input is the
+     * empty string or contains only white space then the result is an empty string.  A
+     * {@literal null} input generates a {@literal null} response.
+     * @param in A string that may contain leading or trailing white space.
+     * @return A string without any leading or trailing white space.
+     */
+    public static String trim(String in) {
+        return in == null ? null : in.trim();
+    }
 }

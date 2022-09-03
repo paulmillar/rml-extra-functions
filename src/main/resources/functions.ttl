@@ -60,6 +60,12 @@ ref:blankToNull a fno:Function;
     fno:expects   ( ref:param_in_str );
     fno:returns   ( ref:stringOut ).
 
+ref:trim a fno:Function;
+    fno:name "trim";
+    dcterms:description "Removing any leading or trailing white space.";
+    fno:expects   ( ref:param_in_str );
+    fno:returns   ( ref:stringOut ).
+
 
 #
 #  PARAMETERS
@@ -148,3 +154,9 @@ ref:blankToNullMapping a fnoi:Mapping;
     fno:implementation   ref:StringUtils;
     fno:methodMapping    [ a fnom:StringMethodMapping;
         fnom:method-name "blankToNull" ] .
+
+ref:TrimMapping a fnoi:Mapping;
+    fno:function         ref:trim;
+    fno:implementation   ref:StringUtils;
+    fno:methodMapping    [ a fnom:StringMethodMapping;
+        fnom:method-name "trim" ] .
