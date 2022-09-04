@@ -66,6 +66,12 @@ ref:trim a fno:Function;
     fno:expects   ( ref:param_in_str );
     fno:returns   ( ref:stringOut ).
 
+ref:withLeadingZeros a fno:Function;
+    fno:name "withLeadingZeros";
+    dcterms:description "Add leading zeros to make desired minimum length.";
+    fno:expects   ( ref:param_in_int ref:param_count_int );
+    fno:returns   ( ref:stringOut ).
+
 
 #
 #  PARAMETERS
@@ -99,6 +105,20 @@ ref:param_in_str a fno:Parameter;
     fno:type      xsd:string;
     fno:required  "true"^^xsd:boolean .
 
+ref:param_in_int a fno:Parameter;
+    fno:name      "The integer value to represent";
+    rdfs:label    "The integer value to represent";
+    fno:predicate ref:p_int_in;
+    fno:type      xsd:int;
+    fno:required  "false"^^xsd:boolean .
+
+ref:param_count_int a fno:Parameter;
+    fno:name      "The count";
+    rdfs:label    "The count";
+    fno:predicate ref:p_int_count;
+    fno:type      xsd:int;
+    fno:required  "true"^^xsd:boolean .
+
 #
 #  OUTPUTS
 #
@@ -120,6 +140,10 @@ ref:UriUtils a fnoi:javaClass ;
 ref:StringUtils a fnoi:javaClass ;
     doap:download-page "./rml-extra-functions-1.0-SNAPSHOT.jar" ;
     fnoi:class-name    "com.github.paulmillar.StringUtils" .
+
+ref:IntegerUtils a fnoi:javaClass ;
+    doap:download-page "./rml-extra-functions-1.0-SNAPSHOT.jar" ;
+    fnoi:class-name    "com.github.paulmillar.IntegerUtils" .
 
 #
 #  MAPPINGS
@@ -160,3 +184,9 @@ ref:TrimMapping a fnoi:Mapping;
     fno:implementation   ref:StringUtils;
     fno:methodMapping    [ a fnom:StringMethodMapping;
         fnom:method-name "trim" ] .
+
+ref:WithLeadingZerosMapping a fnoi:Mapping;
+    fno:function         ref:withLeadingZeros;
+    fno:implementation   ref:IntegerUtils;
+    fno:methodMapping    [ a fnom:StringMethodMapping;
+        fnom:method-name "withLeadingZeros" ] .
