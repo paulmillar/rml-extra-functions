@@ -48,6 +48,12 @@ ref:relativize a fno:Function ;
     fno:expects   ( ref:param_base_uri ref:param_target_uri ) ;
     fno:returns   ( ref:stringOut ) .
 
+ref:encodeUrl a fno:Function ;
+    fno:name "encodeUrl" ;
+    dcterms:description "Take a URL with unsafe characters and convert it to a valid URL." ;
+    fno:expects   ( ref:param_target_uri ) ;
+    fno:returns   ( ref:stringOut ) .
+
 ref:emptyToNull a fno:Function;
     fno:name "emptyToNull";
     dcterms:description "Convert empty strings to null values.";
@@ -166,6 +172,12 @@ ref:relativizeMapping a fnoi:Mapping ;
     fno:implementation   ref:UriUtils ;
     fno:methodMapping    [ a fnom:StringMethodMapping ;
         fnom:method-name "relativize" ] .
+
+ref:encodeUrlMapping a fnoi:Mapping ;
+    fno:function         ref:encodeUrl ;
+    fno:implementation   ref:UriUtils ;
+    fno:methodMapping    [ a fnom:StringMethodMapping ;
+        fnom:method-name "encodeUrl" ] .
 
 ref:emptyToNullMapping a fnoi:Mapping;
     fno:function         ref:emptyToNull;

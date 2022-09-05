@@ -18,6 +18,8 @@ package com.github.paulmillar;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.*;
 
 public class UriUtilsTest
@@ -120,5 +122,63 @@ public class UriUtilsTest
                 "http://example.org/path/");
 
         assertThat(relativePath, equalTo("http://example.org/path/"));
+    }
+
+    //  TESTS FOR UriUtils.encodeUrl
+
+    @Test
+    public void shouldReturnNullForNullInputToEncodeUrl()
+    {
+        String result = UriUtils.encodeUrl(null);
+
+        assertThat(result, is(nullValue()));
+    }
+
+    @Test
+    public void shouldReturnUnencodedValueForSimpleInputToEncodeUrl()
+    {
+        String result = UriUtils.encodeUrl("http://example.org/multi/element/path");
+
+        assertThat(result, is(equalTo("http://example.org/multi/element/path")));
+    }
+
+    @Test
+    public void shouldReturnEncodedValueForInputWithQuotesToEncodeUrl()
+    {
+        String result = UriUtils.encodeUrl("http://example.org/multi/element/path\"foo\"");
+
+        assertThat(result, is(equalTo("http://example.org/multi/element/path%22foo%22")));
+    }
+
+    @Test
+    public void shouldReturnEncodedValueForInputWithPercentToEncodeUrl()
+    {
+        String result = UriUtils.encodeUrl("http://example.org/multi/element/path foo");
+
+        assertThat(result, is(equalTo("http://example.org/multi/element/path%20foo")));
+    }
+
+    @Test
+    public void shouldReturnEncodedValueForTestInput1ToEncodeUrl()
+    {
+        String result = UriUtils.encodeUrl("https://en.wikipedia.org/wiki/University_of_Information_Science_and_Technology_\"St._Paul_The_Apostle\"");
+
+        assertThat(result, is(equalTo("https://en.wikipedia.org/wiki/University_of_Information_Science_and_Technology_%22St._Paul_The_Apostle%22")));
+    }
+
+    @Test
+    public void shouldReturnEncodedValueForTestInput2ToEncodeUrl()
+    {
+        String result = UriUtils.encodeUrl("https://en.wikipedia.org/wiki/Università_\"Italian_University_Line\"");
+
+        assertThat(result, is(equalTo("https://en.wikipedia.org/wiki/Universit%C3%A0_%22Italian_University_Line%22")));
+    }
+
+    @Test
+    public void shouldReturnEncodedValueForTestInput3ToEncodeUrl()
+    {
+        String result = UriUtils.encodeUrl("https://en.wikipedia.org/wiki/University_of_Gjirokastër_\"Eqrem_Çabej\"");
+
+        assertThat(result, is(equalTo("https://en.wikipedia.org/wiki/University_of_Gjirokast%C3%ABr_%22Eqrem_%C3%87abej%22")));
     }
 }

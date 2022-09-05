@@ -16,6 +16,7 @@
 package com.github.paulmillar;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * A utility class containing simple methods for manipulating URIs.
@@ -62,5 +63,51 @@ public class UriUtils
         URI otherUri = URI.create(target);
 
         return firstUri.relativize(otherUri).toString();
+    }
+
+    /**
+     * Take a badly written URL and try to make sense of it.  In particular, convert a URL with
+     * unsafe characters and encode them.  If URL could not be processed then the input is returned
+     * unchanged.
+     * <p>
+     * The argument is optional.  If the argument is {@literal null} then the method will return
+     * {@literal null}.
+     * @param targetUrl The URL to format
+     * @return The percent-encoded URI.
+     */
+    public static String encodeUrl(String targetUrl)
+    {
+        if (targetUrl == null) {
+            return null;
+        }
+
+        int schemeIndex = targetUrl.indexOf(':');
+        if (schemeIndex == -1) {
+            return targetUrl;
+        }
+
+        String scheme = targetUrl.substring(0, schemeIndex);
+        String schemePart = targetUrl.substring(schemeIndex+1);
+        if (!schemePart.startsWith("//")) {
+            return targetUrl;
+        }
+
+        int hierarchyIndex = schemePart.indexOf('/', 2);
+        if (hierarchyIndex == -1) {
+            return targetUrl;
+        }
+
+        String authority = schemePart.substring(2, hierarchyIndex);
+        String path = schemePart.substring(hierarchyIndex);
+
+        // REVISIT: we assume that in contains no query or fragment.
+
+        try {
+            URI validUrl = new URI(scheme, authority, path, null, null);
+            return validUrl.toASCIIString();
+        } catch (URISyntaxException e) {
+            System.err.println("Bad URI: " + e);
+            return targetUrl;
+        }
     }
 }
