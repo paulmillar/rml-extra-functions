@@ -66,21 +66,34 @@ public class UriUtils
     }
 
     /**
-     * Take a badly written URL and try to make sense of it.  In particular, convert a URL with
-     * unsafe characters and encode them.  If URL could not be processed then the input is returned
-     * unchanged.
+     * Take a potentially badly written URL and try to make sense of it.  If the input is a
+     * well-formed URL then it is returned as-is.  If the URL is bad then various heuristics are
+     * used to build a well-formed URL from the supplied text, countering common problems.
      * <p>
      * The argument is optional.  If the argument is {@literal null} then the method will return
      * {@literal null}.
      * @param targetUrl The URL to format
      * @return The percent-encoded URI.
      */
-    public static String encodeUrl(String targetUrl)
+    public static String recogniseUrl(String targetUrl)
     {
         if (targetUrl == null) {
             return null;
         }
 
+        try {
+            new URI(targetUrl);
+            return targetUrl;
+        } catch (URISyntaxException e) {
+            // Fall through to heuristics-based parsing.
+        }
+
+        String trimmedInput = targetUrl.trim();
+        return encodeUrl(trimmedInput);
+    }
+
+    private static String encodeUrl(String targetUrl)
+    {
         int schemeIndex = targetUrl.indexOf(':');
         if (schemeIndex == -1) {
             return targetUrl;
@@ -100,7 +113,7 @@ public class UriUtils
         String authority = schemePart.substring(2, hierarchyIndex);
         String path = schemePart.substring(hierarchyIndex);
 
-        // REVISIT: we assume that in contains no query or fragment.
+        // REVISIT: we assume that in contains no query or fragment parts.
 
         try {
             URI validUrl = new URI(scheme, authority, path, null, null);

@@ -124,12 +124,12 @@ public class UriUtilsTest
         assertThat(relativePath, equalTo("http://example.org/path/"));
     }
 
-    //  TESTS FOR UriUtils.encodeUrl
+    //  TESTS FOR UriUtils.recogniseUrl
 
     @Test
     public void shouldReturnNullForNullInputToEncodeUrl()
     {
-        String result = UriUtils.encodeUrl(null);
+        String result = UriUtils.recogniseUrl(null);
 
         assertThat(result, is(nullValue()));
     }
@@ -137,7 +137,7 @@ public class UriUtilsTest
     @Test
     public void shouldReturnUnencodedValueForSimpleInputToEncodeUrl()
     {
-        String result = UriUtils.encodeUrl("http://example.org/multi/element/path");
+        String result = UriUtils.recogniseUrl("http://example.org/multi/element/path");
 
         assertThat(result, is(equalTo("http://example.org/multi/element/path")));
     }
@@ -145,7 +145,7 @@ public class UriUtilsTest
     @Test
     public void shouldReturnEncodedValueForInputWithQuotesToEncodeUrl()
     {
-        String result = UriUtils.encodeUrl("http://example.org/multi/element/path\"foo\"");
+        String result = UriUtils.recogniseUrl("http://example.org/multi/element/path\"foo\"");
 
         assertThat(result, is(equalTo("http://example.org/multi/element/path%22foo%22")));
     }
@@ -153,7 +153,7 @@ public class UriUtilsTest
     @Test
     public void shouldReturnEncodedValueForInputWithPercentToEncodeUrl()
     {
-        String result = UriUtils.encodeUrl("http://example.org/multi/element/path foo");
+        String result = UriUtils.recogniseUrl("http://example.org/multi/element/path foo");
 
         assertThat(result, is(equalTo("http://example.org/multi/element/path%20foo")));
     }
@@ -161,7 +161,7 @@ public class UriUtilsTest
     @Test
     public void shouldReturnEncodedValueForTestInput1ToEncodeUrl()
     {
-        String result = UriUtils.encodeUrl("https://en.wikipedia.org/wiki/University_of_Information_Science_and_Technology_\"St._Paul_The_Apostle\"");
+        String result = UriUtils.recogniseUrl("https://en.wikipedia.org/wiki/University_of_Information_Science_and_Technology_\"St._Paul_The_Apostle\"");
 
         assertThat(result, is(equalTo("https://en.wikipedia.org/wiki/University_of_Information_Science_and_Technology_%22St._Paul_The_Apostle%22")));
     }
@@ -169,7 +169,7 @@ public class UriUtilsTest
     @Test
     public void shouldReturnEncodedValueForTestInput2ToEncodeUrl()
     {
-        String result = UriUtils.encodeUrl("https://en.wikipedia.org/wiki/Università_\"Italian_University_Line\"");
+        String result = UriUtils.recogniseUrl("https://en.wikipedia.org/wiki/Università_\"Italian_University_Line\"");
 
         assertThat(result, is(equalTo("https://en.wikipedia.org/wiki/Universit%C3%A0_%22Italian_University_Line%22")));
     }
@@ -177,8 +177,16 @@ public class UriUtilsTest
     @Test
     public void shouldReturnEncodedValueForTestInput3ToEncodeUrl()
     {
-        String result = UriUtils.encodeUrl("https://en.wikipedia.org/wiki/University_of_Gjirokastër_\"Eqrem_Çabej\"");
+        String result = UriUtils.recogniseUrl("https://en.wikipedia.org/wiki/University_of_Gjirokastër_\"Eqrem_Çabej\"");
 
         assertThat(result, is(equalTo("https://en.wikipedia.org/wiki/University_of_Gjirokast%C3%ABr_%22Eqrem_%C3%87abej%22")));
+    }
+
+    @Test
+    public void shouldReturnUnchangedInputForValidUrl()
+    {
+        String result = UriUtils.recogniseUrl("http://en.wikipedia.org/wiki/C%C3%A9gep_de_Rimouski");
+
+        assertThat(result, is(equalTo("http://en.wikipedia.org/wiki/C%C3%A9gep_de_Rimouski")));
     }
 }
