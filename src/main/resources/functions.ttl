@@ -25,6 +25,7 @@
 @prefix fnom: <https://w3id.org/function/vocabulary/mapping#> .
 @prefix doap: <http://usefulinc.com/ns/doap#> .
 @prefix ref:  <https://github.com/paulmillar/rml-extra-functions#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 
 #
 #  FUNCTIONS
