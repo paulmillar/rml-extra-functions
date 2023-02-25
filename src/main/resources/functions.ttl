@@ -140,15 +140,15 @@ ref:stringOut a fno:Output ;
 #  IMPLEMENTATIONS
 #
 
-ref:UriUtils a fnoi:javaClass ;
+ref:UriUtils a fnoi:JavaClass ;
     doap:download-page "./rml-extra-functions-1.0-SNAPSHOT.jar" ;
     fnoi:class-name    "com.github.paulmillar.UriUtils" .
 
-ref:StringUtils a fnoi:javaClass ;
+ref:StringUtils a fnoi:JavaClass ;
     doap:download-page "./rml-extra-functions-1.0-SNAPSHOT.jar" ;
     fnoi:class-name    "com.github.paulmillar.StringUtils" .
 
-ref:IntegerUtils a fnoi:javaClass ;
+ref:IntegerUtils a fnoi:JavaClass ;
     doap:download-page "./rml-extra-functions-1.0-SNAPSHOT.jar" ;
     fnoi:class-name    "com.github.paulmillar.IntegerUtils" .
 
