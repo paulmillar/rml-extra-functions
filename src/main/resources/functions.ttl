@@ -156,49 +156,49 @@ ref:IntegerUtils a fnoi:JavaClass ;
 #  MAPPINGS
 #
 
-ref:resolveMapping a fnoi:Mapping ;
+ref:resolveMapping a fno:Mapping ;
     fno:function         ref:resolve ;
     fno:implementation   ref:UriUtils ;
     fno:methodMapping    [ a fnom:StringMethodMapping ;
         fnom:method-name "resolve" ] .
 
-ref:resolveDirectoryMapping a fnoi:Mapping ;
+ref:resolveDirectoryMapping a fno:Mapping ;
     fno:function         ref:resolveDirectory ;
     fno:implementation   ref:UriUtils ;
     fno:methodMapping    [ a fnom:StringMethodMapping ;
         fnom:method-name "resolveDirectory" ] .
 
-ref:relativizeMapping a fnoi:Mapping ;
+ref:relativizeMapping a fno:Mapping ;
     fno:function         ref:relativize ;
     fno:implementation   ref:UriUtils ;
     fno:methodMapping    [ a fnom:StringMethodMapping ;
         fnom:method-name "relativize" ] .
 
-ref:recogniseUrlMapping a fnoi:Mapping ;
+ref:recogniseUrlMapping a fno:Mapping ;
     fno:function         ref:recogniseUrl ;
     fno:implementation   ref:UriUtils ;
     fno:methodMapping    [ a fnom:StringMethodMapping ;
         fnom:method-name "recogniseUrl" ] .
 
-ref:emptyToNullMapping a fnoi:Mapping;
+ref:emptyToNullMapping a fno:Mapping;
     fno:function         ref:emptyToNull;
     fno:implementation   ref:StringUtils;
     fno:methodMapping    [ a fnom:StringMethodMapping;
         fnom:method-name "emptyToNull" ].
 
-ref:blankToNullMapping a fnoi:Mapping;
+ref:blankToNullMapping a fno:Mapping;
     fno:function         ref:blankToNull;
     fno:implementation   ref:StringUtils;
     fno:methodMapping    [ a fnom:StringMethodMapping;
         fnom:method-name "blankToNull" ] .
 
-ref:TrimMapping a fnoi:Mapping;
+ref:TrimMapping a fno:Mapping;
     fno:function         ref:trim;
     fno:implementation   ref:StringUtils;
     fno:methodMapping    [ a fnom:StringMethodMapping;
         fnom:method-name "trim" ] .
 
-ref:WithLeadingZerosMapping a fnoi:Mapping;
+ref:WithLeadingZerosMapping a fno:Mapping;
     fno:function         ref:withLeadingZeros;
     fno:implementation   ref:IntegerUtils;
     fno:methodMapping    [ a fnom:StringMethodMapping;

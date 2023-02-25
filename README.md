@@ -9,6 +9,9 @@ The primary use-case is to extend the abilities of
 [RMLMapper](https://github.com/RMLio/rmlmapper-java) to handle input
 data.
 
+The current version requires RMLMapper v6.0.0 or newer.  It will not
+work with earlier versions of RMLMapper.
+
 ## How to build
 
 The project uses [Apache Maven](https://maven.apache.org/) to manage
